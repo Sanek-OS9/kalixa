@@ -1,0 +1,17 @@
+<initiatePaymentFromReferenceRequest 
+  xmlns="http://www.cqrpayments.com/PaymentProcessing" 
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<merchantID>KalixaAcceptDEMO</merchantID>
+	<shopID>KalixaAcceptDEMO</shopID>
+	<originalPaymentID>616129bf-3ee0-4e63-9998-2fed6e85b7b7</originalPaymentID>
+	<merchantTransactionID>20141211_11</merchantTransactionID>
+	<paymentMethodID>88</paymentMethodID>
+	<amount currencyCode="EUR">10</amount>
+	<specificPaymentData>				
+		<data xsi:type="keyStringValuePair">
+			<key>PaymentDescription</key>
+			<value>Your reason for refund</value>
+		</data>
+	</specificPaymentData>
+</initiatePaymentFromReferenceRequest>

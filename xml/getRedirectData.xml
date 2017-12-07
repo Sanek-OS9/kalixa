@@ -1,0 +1,41 @@
+<getRedirectDataRequest xmlns="http://www.cqrpayments.com/PaymentProcessing" 
+                        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+                        xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <merchantID>KalixaAcceptDEMO</merchantID>
+  <redirectParameters xsi:type="paymentMethodSelectionWithDetailsRedirectParameters">
+    <shopID>KalixaAcceptDEMO</shopID>
+    <httpMethod>POST</httpMethod>
+    <returnUrl>http://www.merchantwebsite.com/Return?orderID=10203040</returnUrl>
+    <languageCode>EN</languageCode>
+    <currencyCode>EUR</currencyCode>
+    <countryCode>AT</countryCode>
+    <additionalDetails>
+      <detail xsi:type="keyStringValuePair">
+        <key>isGrossAmountChangeable</key>
+        <value>true</value>
+      </detail>
+      <detail xsi:type="keyStringValuePair">
+        <key>SkinID</key>
+        <value>06c46a30-f882-4ba9-b9d2-628ea5aa617d</value>
+      </detail>	
+      <detail xsi:type="keyStringValuePair">
+        <key>Description</key>
+        <value>Order Description</value>
+      </detail>
+    </additionalDetails>
+    <user>
+      <id>TestUser1</id>
+    </user>
+    <merchantTransactionID>20141211_2</merchantTransactionID>
+    <grossAmount>33.00</grossAmount>
+    <minPaymentLimitAmount>10</minPaymentLimitAmount>
+    <maxPaymentLimitAmount>3000</maxPaymentLimitAmount>
+    <expirationTimeSpanInSeconds>900</expirationTimeSpanInSeconds>
+    <successUrl>http://www.merchantwebsite.com/success?orderID=10203040</successUrl>
+    <pendingUrl>http://www.merchantwebsite.com/pending?orderID=10203040</pendingUrl>
+    <errorUrl>http://www.merchantwebsite.com/error?orderID=10203040</errorUrl>
+    <cancelUrl>http://www.merchantwebsite.com/cancel?orderID=10203040</cancelUrl>
+    <refusedUrl>http://www.merchantwebsite.com/refused?orderID=10203040</refusedUrl>
+    <paymentDirection>Deposit</paymentDirection>
+  </redirectParameters>
+</getRedirectDataRequest>

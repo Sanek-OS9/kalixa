@@ -1,0 +1,7 @@
+<getPaymentsRequest xmlns="http://www.cqrpayments.com/PaymentProcessing"
+                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<merchantID>YourMerchantID</merchantID>
+	<shopID>YourShopID</shopID>
+	<merchantTransactionID>0e456ga-c54a-945f-34ab-58c939b705</merchantTransactionID>
+	<isExecuted xsi:nil='true'/>
+</getPaymentsRequest>

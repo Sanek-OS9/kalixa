@@ -1,0 +1,45 @@
+<initiatePaymentRequest xmlns="http://www.cqrpayments.com/PaymentProcessing" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <merchantID></merchantID>
+  <shopID></shopID>
+  <merchantTransactionID></merchantTransactionID>
+  <paymentMethodID></paymentMethodID>
+  <amount currencyCode="EUR"></amount>
+  <userID></userID>
+  <userData></userData>
+  <userIP></userIP>
+  <userSessionID></userSessionID>
+  <creationTypeID></creationTypeID>
+  <paymentAccountID></paymentAccountID>
+
+  <specificPaymentData>
+    <data xsi:type="keyStringValuePair">
+      <key>PaymentDescription</key>
+      <value>some description</value>
+    </data>
+    <data xsi:type="keyStringValuePair">
+      <key>PaymentDescriptionLanguageCode</key>
+      <value>en</value>
+    </data>
+  </specificPaymentData>
+  
+  <paymentAccount>
+    <specificPaymentAccountData>
+      <data xsi:type="keyStringValuePair">
+        <key>CardNumber</key>
+        <value>4111111111111111</value>
+      </data>
+      <data xsi:type="keyStringValuePair">
+        <key>HolderName</key>
+        <value>Ciquar Smith</value>
+      </data>
+      <data xsi:type="keyIntValuePair">
+        <key>ExpiryMonth</key>
+        <value>01</value>
+      </data>
+      <data xsi:type="keyIntValuePair">
+        <key>ExpiryYear</key>
+        <value>2020</value>
+      </data>
+    </specificPaymentAccountData>
+  </paymentAccount>
+</initiatePaymentRequest>

@@ -1,0 +1,69 @@
+<initiatePaymentRequest xmlns="http://www.cqrpayments.com/PaymentProcessing"
+                        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                        xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <merchantID></merchantID>
+  <shopID></shopID>
+  <merchantTransactionID></merchantTransactionID>
+  <paymentMethodID>2</paymentMethodID>
+  <amount currencyCode="EUR"></amount>
+  <userID></userID>
+  <userData>
+    <username></username>
+    <firstname></firstname>
+    <lastname></lastname>
+    <currencyCode></currencyCode>
+    <languageCode></languageCode>
+    <email></email>
+    <address>
+      <street></street>
+      <houseNumber></houseNumber>
+      <postalCode></postalCode>
+      <city></city>
+      <countryCode2></countryCode2>
+      <telephoneNumber></telephoneNumber>
+    </address>
+    <dateOfBirth></dateOfBirth>
+    <gender></gender>
+  </userData>
+
+  <userIP></userIP>
+  <userSessionID></userSessionID>
+  <creationTypeID></creationTypeID>
+
+  <specificPaymentData>
+    <data xsi:type="keyStringValuePair">
+      <key></key>
+      <value></value>
+    </data>
+    <data xsi:type="keyStringValuePair">
+      <key></key>
+      <value></value>
+    </data>
+  </specificPaymentData>
+
+  <paymentAccount>
+    <specificPaymentAccountData>
+      <data xsi:type="keyStringValuePair">
+        <key></key>
+        <value></value>
+      </data>
+      <data xsi:type="keyStringValuePair">
+        <key></key>
+        <value></value>
+      </data>
+      <data xsi:type="keyStringValuePair">
+        <key></key>
+        <value></value>
+      </data>
+      <data xsi:type="keyIntValuePair">
+        <key></key>
+        <value></value>
+      </data>
+      <data xsi:type="keyIntValuePair">
+        <key></key>
+        <value></value>
+      </data>
+    </specificPaymentAccountData>
+  </paymentAccount>
+
+</initiatePaymentRequest>
