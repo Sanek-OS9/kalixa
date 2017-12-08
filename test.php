@@ -159,7 +159,7 @@ window.ShopifyPaypalV4VisibilityTracking = true;
                 </p>
                 <p class="fi">
                   <?php
-                  // $kalixa = new Kalixa('xml/getPayments');
+                  // $kalixa = new Kalixa('getPayments');
                   // $kalixa->xml->merchantID = merchantID;
                   // $kalixa->xml->shopID = shopID;
                   // $kalixa->xml->merchantTransactionID = $order['merchantTransactionID'];

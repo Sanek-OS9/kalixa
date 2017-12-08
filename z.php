@@ -17,7 +17,7 @@ $merchantTransactionID = $_POST['merchantTransactionID'];
 $order_id = Order::create($user['userID'], $payVen);
 
 
-$kalixa = new Kalixa('xml/initiatePaymentFromReference');
+$kalixa = new Kalixa('initiatePaymentFromReference');
 $kalixa->xml->merchantID = merchantID;
 $kalixa->xml->shopID = shopID;
 $kalixa->xml->originalPaymentID = $paymentID;

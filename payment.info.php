@@ -8,7 +8,7 @@ if (!isset($_GET['merchantTransactionID'])) {
 }
 $merchantTransactionID = $_GET['merchantTransactionID'];
 
-$kalixa = new Kalixa('xml/getPayments');
+$kalixa = new Kalixa('getPayments');
 $kalixa->xml->merchantID = merchantID;
 $kalixa->xml->shopID = shopID;
 $kalixa->xml->merchantTransactionID = $merchantTransactionID;

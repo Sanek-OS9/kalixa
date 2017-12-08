@@ -11,7 +11,7 @@ $payVen = $_GET['ven'];
 $merchantTransactionID = $_GET['merchantTransactionID'];
 
 //echo $order_id;
-$kalixa = new Kalixa('xml/initiatePayment');
+$kalixa = new Kalixa('initiatePayment');
 $kalixa->xml->merchantID = merchantID;
 $kalixa->xml->shopID = shopID;
 $kalixa->xml->merchantTransactionID = $merchantTransactionID;

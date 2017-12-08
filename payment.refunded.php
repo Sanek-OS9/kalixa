@@ -15,7 +15,7 @@ $merchantTransactionID = (int) $_GET['merchantTransactionID'];
 if (isset($_POST['refud'])) {
   $count = (int) $_POST['count'];
 
-  $kalixa = new Kalixa('xml/initiatePaymentFromReference');
+  $kalixa = new Kalixa('initiatePaymentFromReference');
   $kalixa->xml->merchantID = merchantID;
   $kalixa->xml->shopID = shopID;
 

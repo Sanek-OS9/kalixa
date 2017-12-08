@@ -29,7 +29,7 @@ if (isset($_POST['pays'])) {
     DB::me()->beginTransaction();
     $merchantTransactionID = Order::create($user['userID'], $payVen);
 
-    $kalixa = new Kalixa('xml/initiatePayment.1');
+    $kalixa = new Kalixa('initiatePayment.1');
     $kalixa->xml->merchantTransactionID = $merchantTransactionID;
     $kalixa->xml->merchantID = merchantID;
     $kalixa->xml->shopID = shopID;

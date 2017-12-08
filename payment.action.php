@@ -16,7 +16,7 @@ $remarks = [
   2 => 'CapturedByProvider',
 ];
 
-$kalixa = new Kalixa('xml/executePaymentAction');
+$kalixa = new Kalixa('executePaymentAction');
 $kalixa->xml->merchantID = merchantID;
 $kalixa->xml->shopID = shopID;
 
