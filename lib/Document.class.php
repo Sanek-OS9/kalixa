@@ -65,6 +65,7 @@ class Document
         header('X-UA-Compatible: IE=edge'); // отключение режима совместимости в осле
         header('Content-Type: text/html; charset=utf-8');
         $content =  ob_get_clean();
+        $title = $this->title;
 /*
         $loader = new \Twig_Loader_Filesystem(H . '/Views/' . THEME . '/templates/');
         $twig = new \Twig_Environment($loader);
