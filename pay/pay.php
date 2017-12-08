@@ -1,21 +1,27 @@
 <?php
-require_once('sys/init.php');
-use \lib\kalixa\Kalixa;
-use \lib\kalixa\Order;
+require_once('../sys/init.php');
+use lib\kalixa\Kalixa;
+use lib\kalixa\Order;
 
-if (!isset($_GET['ven'])) {
+if (!isset($_POST['ven']) || !is_numeric($_POST['ven'])) {
   header('Location: ./');
   exit;  
 }
-$payVen = $_GET['ven'];
+if (!isset($_POST['paymentMethodID']) || !is_numeric($_POST['paymentMethodID'])) {
+  header('Location: ./');
+  exit;  
+}
+$payVen = $_POST['ven'];
+$paymentMethodID = $_POST['paymentMethodID'];
 
+DB::me()->beginTransaction();
 $merchantTransactionID = Order::create($user['userID'], $payVen);
 
 $kalixa = new Kalixa('initiatePayment.1');
 $kalixa->xml->merchantID = merchantID;
 $kalixa->xml->shopID = shopID;
 $kalixa->xml->merchantTransactionID = $merchantTransactionID;
-$kalixa->xml->paymentMethodID = 73; // 1 - ECMC Deposit, 2 - VISA Deposit, 73 - Maestro Deposit
+$kalixa->xml->paymentMethodID = $paymentMethodID; // 1 - ECMC Deposit, 2 - VISA Deposit, 73 - Maestro Deposit
 $kalixa->xml->amount = venToUsd($payVen);
 $kalixa->xml->userID = $user['userID'];
 
@@ -38,11 +44,9 @@ if (isset($response->payment->paymentID) && isset($response->payment->state->id)
   $order->paymentID = $response->payment->paymentID;
   $order->state_id = $response->payment->state->id;
   $order->state = $response->payment->state->definition->value;
-
-  //echo '=)';
-  //header('Refresh: 1; ./');
-  //exit;
+  DB::me()->commit();
 } else {
+  DB::me()->rollBack();
   echo '=(';
 }
 

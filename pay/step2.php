@@ -1,11 +1,16 @@
 <?php
-require_once('sys/init.php');
+require_once('../sys/init.php');
 
-if (empty($_GET['ven']) || !is_numeric($_GET['ven'])) {
+if (empty($_POST['ven']) || !is_numeric($_POST['ven'])) {
   header('Location: ./');
   exit;
 }
-$payVen = (int) $_GET['ven'];
+if (empty($_POST['paymentMethodID']) || !is_numeric($_POST['paymentMethodID'])) {
+  header('Location: ./');
+  exit;
+}
+$payVen = (int) $_POST['ven'];
+$paymentMethodID = (int) $_POST['paymentMethodID'];
 /**
  * проверяем совершал ли пользователь покупки ранее
  */
@@ -21,15 +26,17 @@ if ($order = $q->fetch()) {
   </form>';
   exit;
 }*/
-/*
+
 if (!empty($user['paymentAccountID'])) {
   echo 'Вы уже совершали покупку ранее. Будет выбрана кредитная карта которую Вы использовали ранее';
-  echo '<form action="pay.php?ven=' . $payVen . '" method="POST">
-    <input type="submit" value="Согласен">
-  </form>';
+  echo "<form action='pay.php?ven='{$payVen}' method='POST'>
+    <input type='hidden' name='ven' value='{$payVen}' />
+    <input type='hidden' name='paymentMethodID' value='{$paymentMethodID}' />
+    <input type='submit' value='Согласен'>
+  </form>";
   exit;  
 }
-*/
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -37,7 +44,7 @@ if (!empty($user['paymentAccountID'])) {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="stylesheet" type="text/css" href="sys/resources/style.css">
+  <link rel="stylesheet" type="text/css" href="/public/css/style.css">
 
   <title>Test payment</title>
 </head>
@@ -123,10 +130,12 @@ Enjoy :)
       </div>
     </div>
   </div>
-  <form class="form" action="pay.first.php?ven=<?= $payVen ?>" method="POST" autocomplete="off" novalidate>
+  <form class="form" action="./pay.first.php" method="POST" autocomplete="off" novalidate>
     <fieldset>
       <label for="card-number">Card Number</label>
       
+      <input type="hidden" name="ven" value="<?= $payVen ?>" />
+      <input type="hidden" name="paymentMethodID" value="<?= $paymentMethodID ?>" />
       <input type="num" id="card-number" class="input-cart-number" name="card-number[]" value="4111" maxlength="4" />
       <input type="num" id="card-number-1" class="input-cart-number" name="card-number[]" value="1111" maxlength="4" />
       <input type="num" id="card-number-2" class="input-cart-number" name="card-number[]" value="1111" maxlength="4" />
@@ -185,6 +194,6 @@ Enjoy :)
 
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-  <script src="sys/resources/script.js"></script>
+  <script src="/public/js/script.js"></script>
 </body>
 </html>
