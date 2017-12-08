@@ -1,5 +1,8 @@
 <?php
 require_once('sys/init.php');
+use \lib\kalixa\Kalixa;
+use \lib\kalixa\Order;
+use \lib\DB;
 
 if (empty($_GET['ven']) || !is_numeric($_GET['ven'])) {
   header('Location: ./');
@@ -23,6 +26,7 @@ if (isset($_POST['pays'])) {
       'ExpiryYear' => $expiration_year,
     ];
 
+    DB::me()->beginTransaction();
     $merchantTransactionID = Order::create($user['userID'], $payVen);
 
     $kalixa = new Kalixa('xml/initiatePayment.1');
@@ -30,7 +34,7 @@ if (isset($_POST['pays'])) {
     $kalixa->xml->merchantID = merchantID;
     $kalixa->xml->shopID = shopID;
     $kalixa->xml->amount = venToUsd($payVen);
-    $kalixa->xml->paymentMethodID = 2;
+    $kalixa->xml->paymentMethodID = 73; // 1 - ECMC Deposit, 2 - VISA Deposit, 73 - Maestro Deposit
   
     $kalixa->xml->userID = $user['userID'];
   
@@ -70,7 +74,8 @@ if (isset($_POST['pays'])) {
     $response = $kalixa->getResponse();
 
     if (isset($response->payment->paymentID) && isset($response->payment->state->id)) {
-      $order = new Order($merchantTransactionID);
+
+      $order = Order::getOrderById($merchantTransactionID);
       $order->paymentID = $response->payment->paymentID;
       $order->state_id = $response->payment->state->id;
       $order->state = $response->payment->state->definition->value;
@@ -80,7 +85,9 @@ if (isset($_POST['pays'])) {
       //echo '=)';
       //header('Refresh: 1; ./');
       //exit;
+      DB::me()->commit();
     } else {
+      DB::me()->rollBack();
       echo '=(';
     }
 

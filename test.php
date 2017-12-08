@@ -1,5 +1,6 @@
 <?php
 require_once('sys/init.php');
+use lib\DB;
 
 $q = DB::me()->query("SELECT * FROM `orders`");
 $items = $q->fetchAll();

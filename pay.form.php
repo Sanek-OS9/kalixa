@@ -21,13 +21,15 @@ if ($order = $q->fetch()) {
   </form>';
   exit;
 }*/
+/*
 if (!empty($user['paymentAccountID'])) {
   echo 'Вы уже совершали покупку ранее. Будет выбрана кредитная карта которую Вы использовали ранее';
-  echo '<form action="pay.test.php?ven=' . $payVen . '" method="POST">
+  echo '<form action="pay.php?ven=' . $payVen . '" method="POST">
     <input type="submit" value="Согласен">
   </form>';
   exit;  
 }
+*/
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -124,21 +126,22 @@ Enjoy :)
   <form class="form" action="pay.first.php?ven=<?= $payVen ?>" method="POST" autocomplete="off" novalidate>
     <fieldset>
       <label for="card-number">Card Number</label>
-      <input type="num" id="card-number" class="input-cart-number" name="card-number[]" maxlength="4" />
-      <input type="num" id="card-number-1" class="input-cart-number" name="card-number[]" maxlength="4" />
-      <input type="num" id="card-number-2" class="input-cart-number" name="card-number[]" maxlength="4" />
-      <input type="num" id="card-number-3" class="input-cart-number" name="card-number[]" maxlength="4" />
+      
+      <input type="num" id="card-number" class="input-cart-number" name="card-number[]" value="6759" maxlength="4" />
+      <input type="num" id="card-number-1" class="input-cart-number" name="card-number[]" value="6498" maxlength="4" />
+      <input type="num" id="card-number-2" class="input-cart-number" name="card-number[]" value="2643" maxlength="4" />
+      <input type="num" id="card-number-3" class="input-cart-number" name="card-number[]" value="8453" maxlength="4" />
     </fieldset>
     <fieldset>
       <label for="card-holder">Card holder</label>
-      <input type="text" id="card-holder" name="card-holder" />
+      <input type="text" id="card-holder" name="card-holder" value="Ciquar Smith" />
     </fieldset>
     <fieldset class="fieldset-expiration">
       <label for="card-expiration-month">Expiration date</label>
       <div class="select">
         <select id="card-expiration-month" name="card-expiration-month">
           <option></option>
-          <option>01</option>
+          <option selected>01</option>
           <option>02</option>
           <option>03</option>
           <option>04</option>
@@ -155,11 +158,12 @@ Enjoy :)
       <div class="select">
         <select id="card-expiration-year" name="card-expiration-year">
           <option></option>
+          <option>2015</option>
           <option>2016</option>
           <option>2017</option>
           <option>2018</option>
           <option>2019</option>
-          <option>2020</option>
+          <option selected>2020</option>
           <option>2021</option>
           <option>2022</option>
           <option>2023</option>
@@ -170,7 +174,7 @@ Enjoy :)
     </fieldset>
     <fieldset class="fieldset-ccv">
       <label for="card-ccv">CCV</label>
-      <input type="text" id="card-ccv" name="card-ccv" maxlength="3" />
+      <input type="text" id="card-ccv" name="card-ccv" maxlength="3" value="111" />
     </fieldset>
     <input class="btn" type="submit" maxlength="3" name="pays" value="Pay" />
     Buying <?= $payVen ?> Ven for <?= venToUsd($payVen) ?>$

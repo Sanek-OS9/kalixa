@@ -1,5 +1,6 @@
 <?php
 require_once('sys/init.php');
+use \lib\kalixa\Kalixa;
 
 if (!isset($_GET['merchantTransactionID'])) {
   header('Location: ./orders.php');

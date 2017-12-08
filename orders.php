@@ -1,6 +1,9 @@
 <?php
 require_once('sys/init.php');
 
+use lib\kalixa\Order;
+use lib\DB;
+
 echo '<a href="/"><<< home</a><br><br>';
 
 if (isset($_GET['delete'])) {
@@ -15,7 +18,7 @@ $items = $q->fetchAll();
 
 $i = 1;
 foreach ($items as $item):
-  $order = new Order($item['id']);
+  $order = new Order($item);
 
   $order->actions();
 

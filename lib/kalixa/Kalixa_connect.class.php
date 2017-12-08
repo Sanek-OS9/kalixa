@@ -1,4 +1,6 @@
 <?php
+namespace lib\kalixa;
+
 class Kalixa_connect{
   protected $ch;
 
@@ -22,7 +24,7 @@ class Kalixa_connect{
     ]);
     $response = curl_exec($this->ch);
     if ($err = curl_error($this->ch)) {
-      throw new Exception('cURL Error #:' . $err);
+      throw new \Exception('cURL Error #:' . $err);
     } else {
       return $response;
     }

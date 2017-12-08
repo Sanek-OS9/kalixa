@@ -1,5 +1,7 @@
 <?php
 require_once('sys/init.php');
+use \lib\kalixa\Kalixa;
+use \lib\kalixa\Order;
 
 echo '<a href="/orders.php"><<< orders</a><br><br>';
 
@@ -19,7 +21,7 @@ if (isset($_POST['refud'])) {
 
   $kalixa->xml->originalPaymentID = $paymentID;
   $kalixa->xml->merchantTransactionID = $merchantTransactionID;
-  $kalixa->xml->paymentMethodID = 88;
+  $kalixa->xml->paymentMethodID = 90; // 89 - ECMC Deposit, 88 - VISA Deposit, 90 - Maestro Refund
   $kalixa->xml->amount = $count;
 
   $response = $kalixa->getResponse();

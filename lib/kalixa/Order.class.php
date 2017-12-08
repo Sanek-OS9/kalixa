@@ -1,7 +1,11 @@
 <?php
+namespace lib\kalixa;
+
+use lib\DB;
+
 class Order{
-  public $data = [];
-  public $id;
+  public $data;
+  // public $id;
   public $table = 'orders';
 
   const STATE_PENDING_NUM = 105;
@@ -15,26 +19,26 @@ class Order{
 
   private $is_update = false;
 
-  public function __construct($order_id)
+  public function __construct(array $order)
   {
-    $this->id = $order_id;
-    $this->data = $this->getData();
+    $this->data = $order;
   }
 
-  private function getData()
+  public static function getOrderById($order_id)
   {
     $q = DB::me()->prepare("SELECT * FROM `orders` WHERE `id` = ? LIMIT 1");
-    $q->execute([$this->id]);
+    $q->execute([$order_id]);
     if ($order = $q->fetch()) {
-      return $order;
+      return new Order($order);
     }
+    throw new \Exception('Order not found #' . $order_id);
   }
 
   public function actions($path = './') {
     ${self::STATE_CENCELED} = [];
     ${self::STATE_PENDING} = [
       'captured' => $path . 'payment.action.php?paymentID=' . $this->data['paymentID'] . '&amp;merchantTransactionID=' . $this->data['id'] . '&amp;action=' . self::STATE_CAPTURED_NUM,
-      'refunded' => $path . 'payment.refud.php?paymentID=' . $this->data['paymentID'] . '&amp;merchantTransactionID=' . $this->data['id'],
+      'refunded' => $path . 'payment.refunded.php?paymentID=' . $this->data['paymentID'] . '&amp;merchantTransactionID=' . $this->data['id'],
     ];
     ${self::STATE_CAPTURED} = [
       //'withdrawals' => $path . 'pay.withdrawals.php?paymentID=' . $this->data['paymentID'] . '&amp;merchantTransactionID=' . $this->data['id'] . '&amp;ven=15'
@@ -46,7 +50,7 @@ class Order{
     ];
 
     if (empty($this->data['state'])) {
-      throw new Exception('Please specify #"state"');
+      throw new \Exception('Please specify #"state"');
     }
     ${$this->data['state']}['info'] = $path . 'payment.info.php?merchantTransactionID=' . $this->data['id'];
 
@@ -54,7 +58,7 @@ class Order{
   }
   public function getDate()
   {
-    $date = new DateTime();
+    $date = new \DateTime();
     $date->setTimestamp($this->data['time']);
     return $date->format('Y-m-d H:i:s');
   }
@@ -106,7 +110,8 @@ class Order{
   public function delete()
   {
     $q = DB::me()->prepare("DELETE FROM `orders` WHERE `id` = ? LIMIT 1");
-    $q->execute([$this->id]);
+    $q->execute([$this->data['id']]);
+    $this->data = [];
   }
 
   public function __destruct()

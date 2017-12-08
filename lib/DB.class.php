@@ -1,4 +1,6 @@
 <?php
+namespace lib;
+
 class DB
 {
     private static $host;
@@ -41,7 +43,7 @@ class DB
             ];
             try {
               self::$_instance = new \PDO($dsn, self::$user, self::$password, $opt);
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
 
             }
         }

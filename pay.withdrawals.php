@@ -1,5 +1,7 @@
 <?php
 require_once('sys/init.php');
+use \lib\kalixa\Kalixa;
+use \lib\kalixa\Order;
 
 if (empty($_GET['ven']) || empty($_GET['merchantTransactionID'])) {
   header('Location: ./');

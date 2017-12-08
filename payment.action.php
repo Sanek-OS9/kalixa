@@ -1,5 +1,7 @@
 <?php
 require_once('sys/init.php');
+use \lib\kalixa\Kalixa;
+use \lib\kalixa\Order;
 
 if (empty($_GET['paymentID']) || empty($_GET['merchantTransactionID']) || empty($_GET['action'])) {
   header('Location: ./orders.php');
@@ -25,7 +27,7 @@ $kalixa->xml->remark = $remarks[$action] . " Payment TEST";
 $response = $kalixa->getResponse();
 
 if (!isset($response->errorCode)) {
-  $order = new Order($merchantTransactionID);
+  $order = Order::getOrderById($merchantTransactionID);
   $order->state = $remarks[$action];
 }
 

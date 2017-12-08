@@ -3,10 +3,11 @@
 ini_set('error_reporting', E_ALL);
 ini_set("display_errors", 1);
 
-require_once('class/Kalixa_connect.class.php');
-require_once('class/Kalixa.class.php');
-require_once('class/DB.class.php');
-require_once('class/Order.class.php');
+spl_autoload_register(function ($class) {
+  // echo $_SERVER['DOCUMENT_ROOT'] . '/' . str_replace('\\', '/', $class) . '.class.php<br>';
+  require_once $_SERVER['DOCUMENT_ROOT'] . '/' . str_replace('\\', '/', $class) . '.class.php';
+});
+
 
 /*
 * Test Stan
@@ -23,6 +24,7 @@ define('shopID', 'HubCultureServices');
 // define('USER_PASS', 'KalixaAcceptDemoPassword');
 // define('merchantID', 'KalixaAcceptDEMO');
 // define('shopID', 'KalixaAcceptDEMO');
+use lib\DB;
 
 function dump($array) {
   echo '<pre>';
