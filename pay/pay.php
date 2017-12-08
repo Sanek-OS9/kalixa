@@ -2,6 +2,7 @@
 require_once('../sys/init.php');
 use lib\kalixa\Kalixa;
 use lib\kalixa\Order;
+use lib\DB;
 
 if (!isset($_POST['ven']) || !is_numeric($_POST['ven'])) {
   header('Location: ./');

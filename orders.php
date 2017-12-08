@@ -1,5 +1,6 @@
 <?php
 require_once('sys/init.php');
+$document = new lib\Document();
 
 use lib\kalixa\Order;
 use lib\DB;
