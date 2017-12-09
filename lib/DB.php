@@ -29,7 +29,7 @@ class DB
         self::$host = 'localhost';
         self::$db_name = 'kalixa';
         self::$user = 'root';
-        self::$password = 'sl123';
+        self::$password = '100500';
 
         if (!self::$_instance) {
             if (!self::$db_name || !self::$user || !self::$host) {

@@ -1,8 +1,8 @@
 <?php
+namespace lib;
 /**
  * Класс для формирования HTML документа.
  */
-namespace lib;
 
 class Document
 {

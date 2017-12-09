@@ -2,13 +2,57 @@
 // Same as error_reporting(E_ALL);
 ini_set('error_reporting', E_ALL);
 ini_set("display_errors", 1);
+define("H", $_SERVER['DOCUMENT_ROOT']);
+# доступные языки, используется в роутах
+define('AVAILABLE_LANG', '(uk|en|ru|ko)');
+require_once($_SERVER['DOCUMENT_ROOT'] . '/vendor/autoload.php');
+/*
+use Illuminate\Database\Capsule\Manager as Capsule;
 
-spl_autoload_register(function ($class) {
-  // echo $_SERVER['DOCUMENT_ROOT'] . '/' . str_replace('\\', '/', $class) . '.class.php<br>';
-  require_once $_SERVER['DOCUMENT_ROOT'] . '/' . str_replace('\\', '/', $class) . '.class.php';
+$capsule = new Capsule;
+
+$capsule->addConnection([
+    'driver'    => 'mysql',
+    'host'      => '127.0.0.1',
+    'database'  => 'kalixa',
+    'username'  => 'root',
+    'password'  => '100500',
+    'charset'   => 'utf8',
+    'collation' => 'utf8_unicode_ci',
+    'prefix'    => '',
+]);
+
+// Make this Capsule instance available globally via static methods... (optional)
+$capsule->setAsGlobal();*/
+/*
+Capsule::schema()->create('users', function ($table) {
+    $table->increments('userID');
+    $table->string('email')->unique();
+    $table->string('username');
+    $table->string('firstname');
+    $table->string('lastname');
+    $table->string('currencyCode');
+    $table->string('languageCode');
+    $table->string('dateOfBirth');
+    $table->string('gender');
+    $table->string('userSessionID');
+    $table->string('creationTypeID');
+    $table->timestamps();
 });
-
-
+*/
+/*
+Capsule::schema()->create('address', function ($table) {
+  $table->increments('id');
+  $table->string('user_id')->unique();
+  $table->string('street');
+  $table->string('houseNumber');
+  $table->string('postalCode');
+  $table->string('city');
+  $table->string('countryCode2');
+  $table->string('telephoneNumber');
+  $table->timestamps();
+});
+*/
 /*
 * Test Stan
 */
@@ -24,6 +68,16 @@ define('shopID', 'HubCultureServices');
 // define('USER_PASS', 'KalixaAcceptDemoPassword');
 // define('merchantID', 'KalixaAcceptDEMO');
 // define('shopID', 'KalixaAcceptDEMO');
+/*
+spl_autoload_register(function ($class) {
+  // echo $_SERVER['DOCUMENT_ROOT'] . '/' . str_replace('\\', '/', $class) . '.class.php<br>';
+  $class = $_SERVER['DOCUMENT_ROOT'] . '/' . str_replace('\\', '/', $class) . '.class.php';
+  // echo $class;
+  require_once $class;
+});
+*/
+// require_once($_SERVER['DOCUMENT_ROOT'] . '/lib/DB.class.php');
+// require_once($_SERVER['DOCUMENT_ROOT'] . '/lib/Document.class.php');
 use lib\DB;
 
 function dump($array) {
