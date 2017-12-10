@@ -1,9 +1,13 @@
 <?php
 namespace app\http\controllers;
 
-class MainController{
+use app\core\Controller;
+use app\models\User;
+
+class MainController extends Controller{
     public function index()
     {
-        echo '=)';
+        $this->params['message'] = '=)))';
+        $this->display('home');
     }
 }

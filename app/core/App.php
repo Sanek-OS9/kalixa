@@ -2,7 +2,7 @@
 namespace App\Core;
 
 use \App\Models\User;
-use \App\Core\{Authorize,Language};
+use app\core\Language;
 
 abstract class App{
     const USER_GROUP_USER = 1;

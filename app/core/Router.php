@@ -7,9 +7,19 @@ class Router{
     public static $routes = [];
     public static $route;
 
-    public static function add(string $pattern, string $params, string $method = 'GET')
+    public static function get(string $pattern, string $run)
     {
-        self::$routes[] = ['pattern' => AVAILABLE_LANG . $pattern, 'run' => $params, 'method' => $method];
+        self::add($pattern, $run, 'GET');
+    }
+
+    public static function post(string $pattern, string $run)
+    {
+        self::add($pattern, $run, 'POST');
+    }
+
+    private static function add(string $pattern, string $run, string $method = 'GET')
+    {
+        self::$routes[] = ['pattern' => AVAILABLE_LANG . $pattern, 'run' => $run, 'method' => $method];
     }
     private static function matchRoute()
     {
