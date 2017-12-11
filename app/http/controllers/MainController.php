@@ -1,7 +1,7 @@
 <?php
 namespace app\http\controllers;
 
-use app\core\Controller;
+use app\core\{Controller, Captcha};
 use app\models\User;
 
 class MainController extends Controller{
@@ -9,5 +9,11 @@ class MainController extends Controller{
     {
         $this->params['message'] = '=)))';
         $this->display('home');
+    }
+
+    public function captcha()
+    {
+        $captcha = new Captcha;
+        echo $captcha->show();
     }
 }

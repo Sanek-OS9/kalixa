@@ -21,7 +21,7 @@ class Kalixa extends Kalixa_connect{
   }
   protected function loadXml()
   {
-    $file_path = $_SERVER['DOCUMENT_ROOT'] . '/resources/xml/' . $this->xml_file_path . '.xml';
+    $file_path = H . '/resources/xml/' . $this->xml_file_path . '.xml';
     if (!file_exists($file_path)) {
       throw new \Exception('File not exists #:' . $file_path);
     }
