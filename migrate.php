@@ -17,6 +17,7 @@ Capsule::schema()->create('users', function ($table) {
     $table->string('gender');
     $table->string('userSessionID');
     $table->string('creationTypeID');
+    $table->string('paymentAccountID')->unique();
     $table->timestamps();
 });
 Capsule::schema()->create('addresses', function ($table) {
