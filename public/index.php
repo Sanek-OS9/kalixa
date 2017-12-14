@@ -42,8 +42,6 @@ $user = User::firstOrCreate([
     'email' => 'yakov.litvak@qbex.io',
     'dateOfBirth' => '1989-09-28T00:00:00',
     'gender' => 'Male',
-    'userSessionID' => '343',
-    'creationTypeID' => '1',
 ]);
 $address = Address::firstOrCreate([
     'user_id' => $user->userID,

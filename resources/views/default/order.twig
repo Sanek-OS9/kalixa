@@ -1,8 +1,11 @@
 {% extends 'layouts/app.twig' %}
 
 {% block content %}
-    {% for order in ank.orders %}
-        <b>{{ank.username}}</b> bought <em>{{order.count_ven}}</em> Ven <small>(<b>{{order.state}}</b>)</small> <small>({{order.created_at}})</small>
+    {% for order in orders %}
+        <b>{{order.user.username}}</b> bought <em>{{order.count_ven}}</em> Ven <small>(<b>{{order.state}}</b>)</small> <small>({{order.created_at}})</small>
+        {% for k,action in order.actions() %}
+            [<a href="{{action}}">{{k}}</a>]
+        {% endfor %}
         [<a href="{{url('/order/delete/' ~ order.id)}}" style="color:red;">x</a>]
         <br>
     {% endfor %}

@@ -2,7 +2,11 @@
 
 {% block content %}
 <div class="checkout">
-    {% include 'pay/credit-card-box.html' %}
+    {% if user.paymentAccountID %}
+
+    {% else %}
+      {% include 'pay/credit-card-box.html' %}
+    {% endif %}
     <form class="form" action="{{url('/pay/send')}}" method="POST" autocomplete="off" novalidate>
         <fieldset>
             <label for="card-holder">Count Ven</label>
@@ -18,7 +22,18 @@
                 </select>
             </div>
         </fieldset>
-
+    {% if user.accounts %}
+    <fieldset>
+      <label for="accaunt_payment_id">Your credit card used earlier</label>
+      <div class="select">
+        <select id="accaunt_payment_id" name="accaunt_payment_id">
+          {% for account in user.accounts %}
+            <option value="{{account.payment_id}}">{{account.payment_method}}</option>
+          {% endfor %}
+        </select>
+      </div>
+    </fieldset>
+    {% else %}
     <fieldset>
       <label for="card-number">Card Number</label>
       
@@ -71,6 +86,7 @@
       <label for="card-ccv">CCV</label>
       <input type="text" id="card-ccv" name="card-ccv" maxlength="3" value="111" />
     </fieldset>
+    {% endif %}
     <input class="btn" type="submit" maxlength="3" name="pays" value="Pay" />
     {# Buying <?= $payVen ?> Ven for <?= venToUsd($payVen) ?>$ #}
     <!-- <button class="btn"><i class="fa fa-lock"></i> submit</button> -->

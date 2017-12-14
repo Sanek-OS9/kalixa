@@ -40,8 +40,8 @@
       <value></value>
     </data>
     <data xsi:type="keyBooleanValuePair">
-      <key>IsThreeDSecureRequired</key>
-      <value>true</value>
+      <key></key>
+      <value></value>
     </data>   
   </specificPaymentData>
 
