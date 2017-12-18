@@ -39,6 +39,10 @@
       <key></key>
       <value></value>
     </data>
+    <data xsi:type="keyBooleanValuePair">
+      <key></key>
+      <value></value>
+    </data>   
   </specificPaymentData>
 
   <paymentAccount>

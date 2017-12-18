@@ -63,7 +63,7 @@ class Router{
 
             call_user_func_array([$obj, $action], self::$route);
         } else {
-            http_response_code(404);
+            // http_response_code(404);
         }
     }
     public static function getRoutes()

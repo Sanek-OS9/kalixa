@@ -15,8 +15,7 @@ Capsule::schema()->create('users', function ($table) {
     $table->string('languageCode');
     $table->string('dateOfBirth');
     $table->string('gender');
-    $table->string('userSessionID');
-    $table->string('creationTypeID');
+    $table->string('paymentAccountID')->unique();
     $table->timestamps();
 });
 Capsule::schema()->create('addresses', function ($table) {
@@ -36,7 +35,7 @@ Capsule::schema()->create('orders', function ($table) {
     $table->increments('id');
     $table->integer('user_id')->unsigned();
     $table->string('count_ven');
-    $table->string('paymentID')->unique();
+    $table->string('paymentID');
     $table->string('state_id');
     $table->string('state');
     $table->timestamps();
@@ -48,4 +47,13 @@ Capsule::schema()->create('payment_methods', function ($table) {
     $table->string('name');
     $table->integer('num');
     $table->timestamps();
+});
+Capsule::schema()->create('payment_accounts', function ($table) {
+    $table->increments('id');
+    $table->string('payment_id')->unique();
+    $table->string('payment_method');
+    $table->integer('user_id')->unsigned();
+    $table->timestamps();
+
+    $table->foreign('user_id')->references('userID')->on('users');
 });

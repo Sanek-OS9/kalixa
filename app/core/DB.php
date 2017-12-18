@@ -13,7 +13,7 @@ abstract class DB{
             'host'      => 'localhost',
             'database'  => 'kalixa',
             'username'  => 'root',
-            'password'  => '100500',
+            'password'  => 'sl123',
             'charset'   => 'utf8',
             'collation' => 'utf8_unicode_ci',
             'prefix'    => '',

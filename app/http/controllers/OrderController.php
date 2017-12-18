@@ -7,10 +7,15 @@ use app\models\{Order,User};
 class OrderController extends Controller{
     public function all()
     {
-        $user = User::firstOrNew(array('username' => 'Джон'));
-        dump($user);
-        echo $user->userID;
-        $this->params['ank'] = User::find(1);
+        $user = User::find(1999);
+        $orders = Order::where('user_id', '=', $user->userID)->get();
+
+        // foreach ($orders as $order) {
+        //     dump($order->actions());
+        //     exit;
+        // }
+        $this->params['orders'] = $orders;
+
         $this->display('order');
     }
     public function delete(int $order_id)

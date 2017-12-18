@@ -16,4 +16,9 @@ class User extends Model{
     {
         return $this->hasMany('app\models\Order', 'user_id');
     }
+    
+    public function accounts()
+    {
+        return $this->hasMany('app\models\Payment_account', 'user_id');
+    }
 }
