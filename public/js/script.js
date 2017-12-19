@@ -1,4 +1,11 @@
 $( document ).ready(function() {
+
+  $('select[name=paymentAccountID]').on('change', function(e) {
+    $('#card').fadeOut();
+    $('.credit-card-box').fadeOut();
+    $('#paymentMethodID').fadeOut();
+  });
+  
 $('.input-cart-number').on('keyup change', function(){
   $t = $(this);
   

@@ -25,22 +25,13 @@ class PayController extends Controller{
         $response = Order::setDeposit($user, $kalixa, $_POST);
 
         dump($response);
+        if (empty($response->payment->state->paymentStateDetails->detail[0]->value)) {
+            return;
+        }
+        $this->params['payment'] = $response->payment;
+        $this->display('pay/ThreeDSecureListener');
     }
 
-    public function info($merchantTransactionID)
-    {
-        $kalixa = new Kalixa('getPayments');
-        $kalixa->xml->merchantID = merchantID;
-        $kalixa->xml->shopID = shopID;
-        $kalixa->xml->merchantTransactionID = $merchantTransactionID;
-
-        $response = $kalixa->getResponse();
-
-        echo '<b>Request:</b> (' . $kalixa->getUrl() . ')';
-        dump($kalixa->xml);
-        echo '<b>Response:</b>';
-        dump($response);
-    }
     public function action($paymentID, $merchantTransactionID, $action)
     {
         $remarks = [

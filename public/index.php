@@ -25,7 +25,7 @@ DB::connect();
 function dump($array) {
     echo '<pre>';
     print_r($array);
-    echo '<pre>';
+    echo '</pre>';
 }
   
 function venToUsd($ven)
@@ -52,9 +52,5 @@ $address = Address::firstOrCreate([
     'countryCode2' => 'AT',
     'telephoneNumber' => '0064765475',
 ]);
-
-//echo $user->address->street;
-//$ank = User::find(3);
-//dump($ank); 
 require_once '../app/http/routes.php';
 Router::dispatch();

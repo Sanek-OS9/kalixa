@@ -2,38 +2,38 @@
 
 {% block content %}
 <div class="checkout">
-    {% if user.paymentAccountID %}
-
-    {% else %}
+    {# {% if user.accounts is defined %} #}
       {% include 'pay/credit-card-box.html' %}
-    {% endif %}
+    {# {% endif %} #}
     <form class="form" action="{{url('/pay/send')}}" method="POST" autocomplete="off" novalidate>
         <fieldset>
             <label for="card-holder">Count Ven</label>
             <input type="num" name="ven" value="120" />
         </fieldset>
-        <fieldset>
+        <fieldset id="paymentMethodID">
             <label for="card-number">Payment method</label>
             <div class="select">
                 <select name="paymentMethodID">
                     {% for payment in payments %}
-                        <option value="{{payment.num}}">{{payment.name}}</option>
+                        <option value="{{payment.id}}">{{payment.name}}</option>
                     {% endfor %}
                 </select>
             </div>
         </fieldset>
-    {% if user.accounts %}
+    {# {% if user.accounts|length > 0 %} #}
     <fieldset>
-      <label for="accaunt_payment_id">Your credit card used earlier</label>
+      <label for="paymentAccountID">Your credit card used earlier</label>
       <div class="select">
-        <select id="accaunt_payment_id" name="accaunt_payment_id">
+        <select id="paymentAccountID" name="paymentAccountID">
+          <option></option>
           {% for account in user.accounts %}
-            <option value="{{account.payment_id}}">{{account.payment_method}}</option>
+            <option value="{{account.id}}">{{account.method.name}}</option>
           {% endfor %}
         </select>
       </div>
     </fieldset>
-    {% else %}
+    {# {% else %} #}
+    <div id="card">
     <fieldset>
       <label for="card-number">Card Number</label>
       
@@ -86,7 +86,8 @@
       <label for="card-ccv">CCV</label>
       <input type="text" id="card-ccv" name="card-ccv" maxlength="3" value="111" />
     </fieldset>
-    {% endif %}
+    </div>
+    {# {% endif %} #}
     <input class="btn" type="submit" maxlength="3" name="pays" value="Pay" />
     {# Buying <?= $payVen ?> Ven for <?= venToUsd($payVen) ?>$ #}
     <!-- <button class="btn"><i class="fa fa-lock"></i> submit</button> -->
