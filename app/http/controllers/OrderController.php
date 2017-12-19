@@ -2,8 +2,9 @@
 namespace app\http\controllers;
 
 use app\core\Controller;
-use app\models\{Order,User};
-use lib\kalixa\{Kalixa};
+use app\models\Order;
+use app\models\User;
+use lib\kalixa\Kalixa;
 use Valitron\Validator;
 
 class OrderController extends Controller{

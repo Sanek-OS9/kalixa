@@ -1,7 +1,8 @@
 <?php
 namespace app\http\controllers;
 
-use app\core\{Controller, Captcha};
+use app\core\Controller;
+use app\core\Captcha;
 use app\models\User;
 
 class MainController extends Controller{

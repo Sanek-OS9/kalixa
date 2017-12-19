@@ -16,9 +16,11 @@ define('shopID', 'HubCultureServices');
 
 require_once(H . '/vendor/autoload.php');
 
-use app\core\{Router,DB};
+use app\core\Router;
+use app\core\DB;
 use Illuminate\Database\Capsule\Manager as Capsule;
-use app\models\{User,Address};
+use app\models\User;
+use app\models\Address;
 
 DB::connect();
 
@@ -32,25 +34,5 @@ function venToUsd($ven)
 {
 return $ven * 0.1;
 }
-  
-$user = User::firstOrCreate([
-    'username' => 'Yakov', 
-    'firstname' => 'Yakov',
-    'lastname' => 'Litvak',
-    'currencyCode' => 'USD',
-    'languageCode' => 'EN',
-    'email' => 'yakov.litvak@qbex.io',
-    'dateOfBirth' => '1989-09-28T00:00:00',
-    'gender' => 'Male',
-]);
-$address = Address::firstOrCreate([
-    'user_id' => $user->userID,
-    'street' => 'Marxergasse',
-    'houseNumber' => '34b',
-    'postalCode' => '1024',
-    'city' => 'Vienna',
-    'countryCode2' => 'AT',
-    'telephoneNumber' => '0064765475',
-]);
 require_once '../app/http/routes.php';
 Router::dispatch();

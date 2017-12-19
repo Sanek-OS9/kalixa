@@ -1,7 +1,9 @@
 <?php
 require_once('vendor/autoload.php');
 use app\core\DB;
-use app\models\{Payment_method,User,Address};
+use app\models\Payment_method;
+use app\models\User;
+use app\models\Address;
 
 DB::connect();
 
@@ -10,8 +12,7 @@ Payment_method::insert([
   ['name' => 'VISA Deposit', 'num' => 2, 'num_repeated' => 2, 'creationTypeID' => 1, 'creationTypeID_repeated' => 3, 'refunded' => 88],
   ['name' => 'Maestro Deposit', 'num' => 73, 'num_repeated' => 73, 'creationTypeID' => 1, 'creationTypeID_repeated' => 1, 'refunded' => 90],
 ]);
-
-$user = User::create([
+$user = User::create(array(
   'username' => 'Yakov', 
   'firstname' => 'Yakov',
   'lastname' => 'Litvak',
@@ -19,8 +20,8 @@ $user = User::create([
   'languageCode' => 'EN',
   'email' => 'yakov.litvak@qbex.io',
   'dateOfBirth' => '1989-09-28T00:00:00',
-  'gender' => 'Male',
-]);
+  'gender' => 'Male'
+));
 Address::create([
   'user_id' => $user->userID,
   'street' => 'Marxergasse',
