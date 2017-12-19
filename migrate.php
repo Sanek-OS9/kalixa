@@ -30,19 +30,6 @@ Capsule::schema()->create('addresses', function ($table) {
 
     $table->foreign('user_id')->references('userID')->on('users');
 });
-Capsule::schema()->create('orders', function ($table) {
-    $table->increments('id');
-    $table->integer('user_id')->unsigned();
-    $table->string('count_ven');
-    $table->string('paymentID');
-    $table->string('state_id');
-    $table->string('method_id')->unsigned();
-    $table->string('state')->default('none');
-    $table->timestamps();
-
-    $table->foreign('method_id')->references('id')->on('payment_methods');
-    $table->foreign('user_id')->references('userID')->on('users');
-});
 Capsule::schema()->create('payment_methods', function ($table) {
     $table->increments('id');
     $table->string('name');
@@ -52,6 +39,19 @@ Capsule::schema()->create('payment_methods', function ($table) {
     $table->integer('creationTypeID_repeated');
     $table->integer('refunded');
     $table->timestamps();
+});
+Capsule::schema()->create('orders', function ($table) {
+    $table->increments('id');
+    $table->integer('user_id')->unsigned();
+    $table->string('count_ven');
+    $table->string('paymentID');
+    $table->string('state_id');
+    $table->integer('method_id')->unsigned();
+    $table->string('state')->default('none');
+    $table->timestamps();
+
+    $table->foreign('method_id')->references('id')->on('payment_methods');
+    $table->foreign('user_id')->references('userID')->on('users');
 });
 Capsule::schema()->create('payment_accounts', function ($table) {
     $table->increments('id');

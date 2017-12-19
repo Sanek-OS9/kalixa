@@ -2,9 +2,11 @@
 namespace app\http\controllers;
 
 use app\core\Controller;
-use app\models\{Payment_method, User, Order};
+use app\models\Payment_method;
+use app\models\User;
+use app\models\Order;
 use Valitron\Validator;
-use lib\kalixa\{Kalixa};
+use lib\kalixa\Kalixa;
 
 class PayController extends Controller{
     public $user;

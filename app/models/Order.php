@@ -3,7 +3,8 @@ namespace app\models;
 
 use Illuminate\Database\Eloquent\Model;
 use app\core\App;
-use app\models\{Payment_account,Payment_method};
+use app\models\Payment_account;
+use app\models\Payment_method;
 
 class Order extends Model{
     protected $guarded = ['id'];

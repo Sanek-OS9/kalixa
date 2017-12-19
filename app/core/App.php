@@ -12,7 +12,7 @@ abstract class App{
     /*
      * в любой не понятной ситуации ошибка 404
      */
-    public static function access_denied(string $message = '', bool $view = false)
+    public static function access_denied($message = '', $view = false)
     {
         // администратору/модератору можно показать ошибки
         if (self::user()->group >= self::USER_GROUP_MODER || $view) {
@@ -33,16 +33,19 @@ abstract class App{
             # если почему-то хэш пользователя не совпадает с тем что в сессии
             # сбрасываем авторизацию
             if ($_instance->id && $_instance->password != Authorize::getHash()) {
-                Authorize::exit();
+                Authorize::logout();
                 self::access_denied(__('Ошибка авторизации'), true);
             }
         }
         return $_instance;
     }
     # возвращаем референую ссылку, если таковой нету то заданую
-    public static function referer(string $link = '/'): string
+    public static function referer($link = '/')
     {
-        return $_SERVER['HTTP_REFERER'] ?? $link;
+        if (!empty($_SERVER['HTTP_REFERER'])) {
+            return $_SERVER['HTTP_REFERER'];
+        }
+        return $link;
     }
     # выбранный язык сайта
     public static function language()
@@ -55,25 +58,25 @@ abstract class App{
         return $language;
     }
     # получаем язык сайта из адресной строки
-    private static function current_language(): string
+    private static function current_language()
     {
         $language_current = explode('/', self::getURI())[0];
         return $language_current;
     }
 
-    public static function getURI(): string
+    public static function getURI()
     {
         if (!empty($_SERVER['REQUEST_URI'])) {
             return trim($_SERVER['REQUEST_URI'], '/');
         }
     }
     # возвращаем URL
-    public static function url(string $url): string
+    public static function url($url)
     {
         return '/' . self::current_language() . $url;
     }
     # получаем данные настроек
-    public static function config(string $file, bool $process_sections = false): array
+    public static function config($file, $process_sections = false)
     {
         $path_file = H . '/config/' . $file . '.ini';
         if (!file_exists($path_file)) {

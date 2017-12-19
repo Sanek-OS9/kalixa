@@ -7,17 +7,17 @@ class Router{
     public static $routes = [];
     public static $route;
 
-    public static function get(string $pattern, string $run)
+    public static function get($pattern, $run)
     {
         self::add($pattern, $run, 'GET');
     }
 
-    public static function post(string $pattern, string $run)
+    public static function post($pattern, $run)
     {
         self::add($pattern, $run, 'POST');
     }
 
-    private static function add(string $pattern, string $run, string $method = 'GET')
+    private static function add($pattern, $run, $method = 'GET')
     {
         self::$routes[] = ['pattern' => AVAILABLE_LANG . $pattern, 'run' => $run, 'method' => $method];
     }

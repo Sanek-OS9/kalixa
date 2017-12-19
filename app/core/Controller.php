@@ -7,13 +7,13 @@ class Controller{
     protected $params = [];
     protected $template_dir = 'default';
 
-    protected function access_denied(string $msg)
+    protected function access_denied($msg)
     {
         $this->params['message'] = $msg;
         $this->display('access_denied');
         exit;
     }
-    protected function display(string $filename)
+    protected function display($filename)
     {
         //$this->_inicialization();
 
@@ -25,7 +25,7 @@ class Controller{
         // $twig->addFunction(new \Twig_Function('__', function (string $string, string $param1 = '', string $param2 = '') {
         //   return __($string, $param1, $param2);
         // }));
-        $twig->addFunction(new \Twig_SimpleFunction('url', function (string $url) {
+        $twig->addFunction(new \Twig_SimpleFunction('url', function ($url) {
           return App::url($url);
         }));
         $template = $twig->loadTemplate('/' . $filename . '.twig');
@@ -96,7 +96,7 @@ class Controller{
         }
     }
 
-    protected function redirect(string $path = '/'){
+    protected function redirect($path = '/'){
         header('Location: ' . App::url($path));
         exit;
     }
