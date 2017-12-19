@@ -1,0 +1,1 @@
+The library for working with the payment system kalixa, developed for the project <a href="https://hubculture.com/">hubculture.com</a>

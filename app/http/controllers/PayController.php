@@ -30,8 +30,23 @@ class PayController extends Controller{
         if (empty($response->payment->state->paymentStateDetails->detail[0]->value)) {
             return;
         }
+        $kalixa = new Kalixa('executePaymentAction');
+        $kalixa->xml->merchantID = merchantID;
+        $kalixa->xml->shopID = shopID;
+        $kalixa->xml->paymentID = $response->payment->paymentID;
+        $kalixa->xml->actionID = 90;
+        $kalixa->xml->actionData->data{0}->key = 'PaReq';
+        $kalixa->xml->actionData->data{0}->value = $response->payment->state->paymentStateDetails->detail->{2}->value;
+        $kalixa->xml->actionData->data{1}->key = 'MD';
+        $kalixa->xml->actionData->data{1}->value = $response->payment->state->paymentStateDetails->detail->{3}->value;
+        $kalixa->xml->actionData->data{2}->key = 'TermUrl';
+        $kalixa->xml->actionData->data{2}->value = $response->payment->state->paymentStateDetails->detail->{1}->value;
+
+        $response = $kalixa->getResponse();
+        dump($kalixa->xml);
+        dump($response);
         $this->params['payment'] = $response->payment;
-        $this->display('pay/ThreeDSecureListener');
+        // $this->display('pay/ThreeDSecureListener');
     }
 
     public function action($paymentID, $merchantTransactionID, $action)
@@ -49,7 +64,7 @@ class PayController extends Controller{
         $kalixa->xml->paymentID = $paymentID;
         $kalixa->xml->actionID = $action;
         $kalixa->xml->remark = $remarks[$action] . " Payment TEST";
-        
+        unset($kalixa->xml->actionData);
         $response = $kalixa->getResponse();
         
         if (!isset($response->errorCode)) {

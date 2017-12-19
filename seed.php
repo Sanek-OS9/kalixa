@@ -9,9 +9,12 @@ DB::connect();
 
 Payment_method::insert([
   ['name' => 'ECMC Deposit', 'num' => 1, 'num_repeated' => 1, 'creationTypeID' => 1, 'creationTypeID_repeated' => 3, 'refunded' => 89],
+  ['name' => 'ECMC Debit Deposit', 'num' => 168, 'num_repeated' => 168, 'creationTypeID' => 1, 'creationTypeID_repeated' => 3, 'refunded' => 89],
   ['name' => 'VISA Deposit', 'num' => 2, 'num_repeated' => 2, 'creationTypeID' => 1, 'creationTypeID_repeated' => 3, 'refunded' => 88],
+  ['name' => 'VISA Debit Deposit', 'num' => 167, 'num_repeated' => 167, 'creationTypeID' => 1, 'creationTypeID_repeated' => 3, 'refunded' => 88],
   ['name' => 'Maestro Deposit', 'num' => 73, 'num_repeated' => 73, 'creationTypeID' => 1, 'creationTypeID_repeated' => 1, 'refunded' => 90],
 ]);
+
 $user = User::create([
   'username' => 'Yakov', 
   'firstname' => 'Yakov',
