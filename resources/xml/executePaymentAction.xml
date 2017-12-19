@@ -6,5 +6,19 @@
   <shopID></shopID>
   <paymentID></paymentID>
   <actionID></actionID>
+  <actionData>
+    <data xsi:type="keyStringValuePair">
+      <key></key>
+      <value></value>
+    </data>
+    <data xsi:type="keyStringValuePair">
+      <key></key>
+      <value></value>
+    </data>
+    <data xsi:type="keyStringValuePair">
+      <key></key>
+      <value></value>
+    </data>
+  </actionData>
   <remark></remark>
 </executePaymentActionRequest>
