@@ -3,7 +3,7 @@ namespace app\models;
 
 use Illuminate\Database\Eloquent\Model;
 use app\core\App;
-use app\models\Payment_account;
+use app\models\{Payment_account,Payment_method};
 
 class Order extends Model{
     protected $guarded = ['id'];
@@ -23,7 +23,7 @@ class Order extends Model{
         ${self::STATE_CENCELED} = [];
         ${self::STATE_PENDING} = [
           'captured' => App::url($path . 'action/' . $this->paymentID . '/' . $this->id . '/' . self::STATE_CAPTURED_NUM),
-          'refunded' => App::url($path . 'refunded/' . $this->paymentID . '/' . $this->id),
+          'refunded' => App::url($path . 'refunded/' . $this->id),
         ];
         ${self::STATE_CAPTURED} = [];
         ${self::STATE_AUTHORISED} = [
@@ -43,30 +43,45 @@ class Order extends Model{
         return $this->hasOne('\app\models\User', 'userID', 'user_id');
     }
 
+    public function method()
+    {
+        return $this->hasOne('\app\models\Payment_method', 'id', 'method_id');
+    }
+
     public static function setDeposit($user, $kalixa, $data)
     {
         $order = new Order;
+        if (empty($data['paymentAccountID'])) {
+            $Payment_method = Payment_method::find($data['paymentMethodID']);
+        } else {
+            $Payment_account = Payment_account::find($data['paymentAccountID']);            
+            $Payment_method = Payment_method::find($Payment_account->method_id);
+        }
+        
+
         $order->user_id = $user->userID;
         $order->count_ven = $data['ven'];
+        $order->method_id = $Payment_method->id;
         $order->save();
 
         $kalixa->xml->merchantTransactionID = $order->id;
         $kalixa->xml->merchantID = merchantID;
         $kalixa->xml->shopID = shopID;
         $kalixa->xml->amount = venToUsd($data['ven']);
-        $kalixa->xml->paymentMethodID = $data['paymentMethodID']; // 1 - ECMC Deposit, 2 - VISA Deposit, 73 - Maestro Deposit
-
+        
         $kalixa->xml->userID = $user->userID;
         $kalixa->xml->userIP = $_SERVER['REMOTE_ADDR'];
         $kalixa->xml->userSessionID = \session_id();
 
-        if (!$user->paymentAccountID) {
-            $kalixa->xml->creationTypeID = 1;
+        if (empty($data['paymentAccountID'])) {
+            $kalixa->xml->paymentMethodID = $Payment_method->num; // 1 - ECMC Deposit, 2 - VISA Deposit, 73 - Maestro Deposit
+            $kalixa->xml->creationTypeID = $Payment_method->creationTypeID; // 1 - Maestro Deposit, 3 - VISA Deposit (repeat)
             $kalixa->setUserData($user);
             $kalixa->setPaymentAccount($data);
         } else {
-            $kalixa->xml->creationTypeID = 73 == $kalixa->xml->paymentMethodID ? 1 : 3;
-            $kalixa->xml->paymentAccountID = $user->paymentAccountID;
+            $kalixa->xml->creationTypeID = $Payment_method->creationTypeID_repeated;
+            $kalixa->xml->paymentMethodID = $Payment_method->num_repeated;
+            $kalixa->xml->paymentAccountID = $Payment_account->payment_id;
             unset($kalixa->xml->userData);
             unset($kalixa->xml->paymentAccount);                
         }
@@ -84,8 +99,8 @@ class Order extends Model{
             unset($kalixa->xml->specificPaymentData->data{2});
             // unset($kalixa->xml->specificPaymentData->data{3});
         }
-        //dump($kalixa->xml);
-        //exit;
+        // dump($kalixa->xml);
+        // exit;
         $response = $kalixa->getResponse();
         if (isset($response->payment->paymentID) && isset($response->payment->state->id)) {
             $order->paymentID = $response->payment->paymentID;
@@ -95,7 +110,7 @@ class Order extends Model{
             Payment_account::firstOrCreate([
                 'payment_id' => $response->payment->paymentAccount->paymentAccountID, 
                 'user_id' => $user->userID,
-                'payment_method' => $response->payment->paymentMethod->value,
+                'method_id' => $Payment_method->id,
             ]);
         } else {
             $order->delete();

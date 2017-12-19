@@ -22,6 +22,13 @@ class Kalixa extends Kalixa_connect{
       break;
     }
   }
+  public function __get($name)
+  {
+    switch ($name) {
+      case 'state': return $this->getResponse()->payments->payment->state->definition->value;
+    }
+    return $this;
+  }
   protected function loadXml()
   {
     $file_path = H . '/resources/xml/' . $this->xml_file_path . '.xml';

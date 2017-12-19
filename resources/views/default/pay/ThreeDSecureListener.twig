@@ -1,0 +1,21 @@
+{% extends 'layouts/app.twig' %}
+
+{% block content %}
+  <style>
+  input[type="text"]{
+      width:100%;
+      height: 30px;
+  }
+  input{
+      margin-bottom:5px;
+      padding: 7px;
+  }
+  </style>
+  <form action="{{payment.state.paymentStateDetails.detail.0.value}}" method="POST">
+      TermUrl: <input type="text" name="TermUrl" value="{{ payment.state.paymentStateDetails.detail.1.value }}" />
+      PaReq: <input type="text" name="PaReq" value="{{ payment.state.paymentStateDetails.detail.2.value }}" />
+      MD: <input type="text" name="MD" value="{{ payment.state.paymentStateDetails.detail.3.value }}" />
+      <input type="submit" value="Send">
+  </form>
+
+{% endblock %}
