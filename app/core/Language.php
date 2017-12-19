@@ -14,13 +14,13 @@ class Language{
     private $is_update = false;
     private $config;
 
-    public function __construct(string $lang)
+    public function __construct($lang)
     {
         $this->lang = $lang;
         $this->config = $this->getConfig();
         $this->words = $this->getBaseWords();
     }
-    private function getConfig(): array
+    private function getConfig()
     {
         static $config;
         if (!$config) {
@@ -29,17 +29,17 @@ class Language{
         return $config;
     }
     # возвращает ключи языков (@return [ru,en,uk...])
-    public function getKeys(): array
+    public function getKeys()
     {
         return array_keys($this->config['list']);
     }
     # проверяем существующий ли передан язык
-    private function is_lang(): bool
+    private function is_lang()
     {
         return array_key_exists($this->lang, $this->config['list']) ? true : false;
     }
     # переводим строку
-    public function translate(string $string): string
+    public function translate($string)
     {
         # если язык русский то переводить не нужно
         if ($this->lang == 'ru' || !$this->is_lang()) {
@@ -61,13 +61,13 @@ class Language{
         $this->addWord($string); // добавли новое слово в словарь
         return $string;
     }
-    public function name(): string
+    public function name()
     {
         $name = $this->config['list'][$this->lang] ?? 'Неизвестно';
         return __($name);
     }
     # автоперевод с попмощю API сервиса multillect.com
-    private function autoTranslate(string $string): string
+    private function autoTranslate($string)
     {
         $data = file_get_contents('https://api.multillect.com/translate/json/1.0/' . $this->config['set']['id'] . '?method=translate/api/translate&from=ru&to=' . $this->lang . '&text=' . $string . '&sig=' . $this->config['set']['sig']);
         $data = json_decode($data);
@@ -82,7 +82,7 @@ class Language{
         return $translated;
     }
     # добавление нового слова в словарь
-    private function addWord(string $string)
+    private function addWord($string)
     {
         $this->words[$string] = $string;
         return;

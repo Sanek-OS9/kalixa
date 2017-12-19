@@ -20,7 +20,7 @@ class Captcha{
         }
     }
     # получем длину капчи
-    private function getLength(): int
+    private function getLength()
     {
         return mt_rand(4, 7);
     }
@@ -30,7 +30,7 @@ class Captcha{
         return substr($this->string, mt_rand(0, strlen($this->string)), 1);
     }
     # получаем случайный шрифт
-    private function getFont(): string
+    private function getFont()
     {
         $fonts = glob(H . '/resources/fonts/*.ttf');
         return $fonts[mt_rand(0, count($fonts) - 1)];
@@ -50,14 +50,14 @@ class Captcha{
         header('Content-Type: image/png');
         ImagePNG($image);
     }
-    private function getCaptchaWidtch(): int
+    private function getCaptchaWidtch()
     {
         return strlen($this->text) * 20;
     }
     # проверяем правильность ввода капчи
-    public static function check(): bool
+    public static function check()
     {
-        $send_captcha = mb_strtolower($_POST['captcha']) ?? '';
+        $send_captcha = isset($_POST['captcha']) ? mb_strtolower($_POST['captcha']) : '';
         $captcha = $_SESSION['captcha'];
         unset($_SESSION['captcha']);
         return $send_captcha == $captcha ? true : false;
